@@ -55,7 +55,7 @@ app.post("/api/exercise/add", function(req, res) {
     description,
     duration: +duration,
     date: dateObj.toString(),
-    username: getUsernameById(userId)
+    
   }
   exercises.push(newExercise);
   res.json(newExercise);
