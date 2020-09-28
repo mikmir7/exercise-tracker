@@ -47,9 +47,9 @@ app.get("/api/exercise/users", function (req, res){
 // Returned will be the user object with also with the
 // exercise fields added.
 app.post("/api/exercise/add", function(req, res) {
-  const { userId, description, duration, date } = req.body;
+  let { userId, description, duration, date } = req.body;
 
-  const dateObj = date === undefined ? new Date() : new Date(date);
+  const dateObj = date === '' ? new Date() : new Date(date);
   const newExercise = {
     _id: userId,
     description,
