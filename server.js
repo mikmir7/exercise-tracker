@@ -49,11 +49,11 @@ app.get("/api/exercise/users", function (req, res){
 app.post("/api/exercise/add", function(req, res) {
   const { userId, description, duration, date } = req.body;
 
-  const dateObj = date === ' ' ? new Date() : new Date(date);
+  const dateObj = date === '' ? new Date() : new Date(date);
   const newExercise = {
     _id: userId,
     description,
-    duration,
+    duration: +duration,
     date: dateObj.toString(),
     username: getUsernameById(userId)
   }
