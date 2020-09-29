@@ -73,7 +73,7 @@ app.post("/api/exercise/add", function(req, res) {
 // of from & to or limit. (Date format yyyy-mm-dd, limit = int)
 
 
-app.get("/api/exercise/log", function(req, res) {
+app.get('/api/exercise/log', (req, res) => {
   const { userId, from, to, limit } = req.query;
 
   let log = getExercisesFromUserWithId(userId);
@@ -85,7 +85,7 @@ app.get("/api/exercise/log", function(req, res) {
   
   if(to) {
     const toDate = new Date(to);
-    log = log.filter(exe => newDate(exe.date) <= toDate);
+    log = log.filter( exe => newDate(exe.date) <= toDate);
   }
 
   if(limit) {
