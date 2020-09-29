@@ -47,16 +47,16 @@ app.get("/api/exercise/users", function (req, res){
 // Returned will be the user object with also with the
 // exercise fields added.
 app.post("/api/exercise/add", function(req, res) {
-  const { userId, description, duration, date } = req.body;
+  let { userId, description, duration, date } = req.body;
 
-  const dateObj = date === '' ? new Date() : new Date(date);
+  let dateObj = date === '' ? new Date() : new Date(date);
   const newExercise = {
     _id: userId,
     description,
     duration: +duration,
-    date: dateObj.toString(),
-    
-  }
+    date: dateObj.toString().slice(0, 15),
+    username: getUsernameById(userId)
+  };
   exercises.push(newExercise);
   res.json(newExercise);
 });
@@ -80,7 +80,7 @@ app.get("/api/exercise/log", function(req, res) {
 
   if(from) {
     const fromDate = new Date(from);
-    log = log.filter(exe => newDate(exe.date) >= fromDate);
+    log = log.filter( exe => newDate(exe.date) >= fromDate);
   }
   
   if(to) {
@@ -94,7 +94,7 @@ app.get("/api/exercise/log", function(req, res) {
 
 
   res.json({
-    _id: userId,
+    userId,
     username: getUsernameById(userId),
     count: log.length,
     log
