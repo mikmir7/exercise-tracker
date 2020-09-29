@@ -47,7 +47,7 @@ app.get("/api/exercise/users", function (req, res){
 // Returned will be the user object with also with the
 // exercise fields added.
 app.post("/api/exercise/add", function(req, res) {
-  let { userId, description, duration, date } = req.body;
+  const { userId, description, duration, date } = req.body;
 
   const dateObj = date === '' ? new Date() : new Date(date);
   const newExercise = {
@@ -73,7 +73,7 @@ app.post("/api/exercise/add", function(req, res) {
 // of from & to or limit. (Date format yyyy-mm-dd, limit = int)
 
 
-app.get("/api/exercise/log", function(req,res) {
+app.get("/api/exercise/log", function(req, res) {
   const { userId, from, to, limit } = req.query;
 
   let log = getExercisesFromUserWithId(userId);
@@ -98,7 +98,7 @@ app.get("/api/exercise/log", function(req,res) {
     username: getUsernameById(userId),
     count: log.length,
     log
-  })
+  });
 }); 
 
 
