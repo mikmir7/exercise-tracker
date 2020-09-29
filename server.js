@@ -94,7 +94,7 @@ app.get('/api/exercise/log', (req, res) => {
 
 
   res.json({
-    userId,
+    _id: userId,
     username: getUsernameById(userId),
     count: log.length,
     log
