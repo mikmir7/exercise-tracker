@@ -80,12 +80,12 @@ app.get('/api/exercise/log', (req, res) => {
 
   if(from) {
     const fromDate = new Date(from);
-    log = log.filter( exe => newDate(exe.date) >= fromDate);
+    log = log.filter( exe => newDate(exe.date) > fromDate);
   }
   
   if(to) {
     const toDate = new Date(to);
-    log = log.filter( exe => newDate(exe.date) <= toDate);
+    log = log.filter( exe => newDate(exe.date) < toDate);
   }
 
   if(limit) {
