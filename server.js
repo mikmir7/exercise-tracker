@@ -78,18 +78,14 @@ app.get('/api/exercise/log', (req, res) => {
 
   let log = getExercisesFromUserWithId(userId);
 
-  if(from) {
+  if(from && to){
     const fromDate = new Date(from);
-    log = log.filter( exe => newDate(exe.date) >= fromDate);
-  }
-  
-  if(to) {
     const toDate = new Date(to);
-    log = log.filter( exe => newDate(exe.date) <= toDate);
+    log = log.filter(exe => new Date.parse(exe.date) > fromDate) && log.filter(exe => new Date.parse(exe.date) < toDate);  
   }
 
   if(limit) {
-    log = log.slice(0, +limit);
+    log = log.slice(0, limit);
   }
 
 
