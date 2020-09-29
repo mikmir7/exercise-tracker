@@ -75,27 +75,29 @@ app.post("/api/exercise/add", function(req, res) {
 
 app.get('/api/exercise/log', (req, res) => {
   const { userId, from, to, limit } = req.query;
-
   let log = getExercisesFromUserWithId(userId);
-
-  if(from && to){
+  
+  if (from) {
     const fromDate = new Date(from);
+    log = log.filter( exe => new Date(exe.date) >= fromDate);
+  }
+  
+  if (to) {
     const toDate = new Date(to);
-    log = log.filter(exe => new Date.parse(exe.date) > fromDate) && log.filter(exe => new Date.parse(exe.date) < toDate);  
+    log = log.filter( exe => new Date(exe.date) <= toDate);
   }
-
-  if(limit) {
-    log = log.slice(0, limit);
+  
+  if (limit) {
+    log = log.slice(0, +limit);
   }
-
-
+  
   res.json({
-    _id: userId,
+    userId,
     username: getUsernameById(userId),
     count: log.length,
     log
   });
-}); 
+});
 
 
 
